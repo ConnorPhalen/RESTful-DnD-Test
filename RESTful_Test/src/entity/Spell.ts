@@ -97,13 +97,13 @@ export class Spell {
         enum: MagicSchool,
         default: MagicSchool.EVOCATION
     })
-    attackType: MagicSchool;
+    magicSchool: MagicSchool;
 
     @Column({
         type: "enum",
         enum: Class,
         default: Class.FIGHTER
     })
-    attackType: Class;
+    classReq: Class;
 
 }
