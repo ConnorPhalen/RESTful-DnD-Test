@@ -1,3 +1,9 @@
+/*
+** Spell Entity for storing data retrieved from the DnD API outlined in the README file.
+**
+** Helpful Sources: 
+**      Basic CRUD functions (Repository): https://levelup.gitconnected.com/complete-guide-to-using-typeorm-and-typescript-for-data-persistence-in-node-js-module-bfce169959d9
+*/
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 
 export enum DamageType {
@@ -45,9 +51,17 @@ export enum Class {
 
 @Entity()
 export class Spell {
+    // Functions Start
+    // Functions End
 
+    // Columns Start
     @PrimaryGeneratedColumn()
     id: number;
+
+    @Column({
+        default: "Empty"
+    })
+    spellIndex: string;
 
     @Column({
         default: "Empty"
@@ -129,5 +143,5 @@ export class Spell {
         default: Class.FIGHTER
     })
     classReq: Class;
-
+    // Columns End
 }
