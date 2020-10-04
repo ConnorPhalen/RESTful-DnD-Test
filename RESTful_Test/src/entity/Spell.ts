@@ -49,37 +49,59 @@ export class Spell {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({
+        default: "Empty"
+    })
     spellName: string;
 
-    @Column()
+    @Column({
+        default: "Empty"
+    })
     description: string;
 
-    @Column()
+    @Column({
+        default: "Empty"
+    })
     higherLevel: string;
 
-    @Column()
+    @Column({
+        default: 0
+    })
     range: number;
 
-    @Column()
+    @Column({
+        default: "Empty"
+    })
     components: string;
 
-    @Column()
+    @Column({
+        default: "Empty"
+    })
     material: string;
 
-    @Column()
-    ritual: bool;
+    @Column({
+        default: false
+    })
+    ritual: boolean;
 
-    @Column()
+    @Column({
+        default: 0
+    })
     duration: number;
 
-    @Column()
-    concentration: bool;
+    @Column({
+        default: false
+    })
+    concentration: boolean;
 
-    @Column()
+    @Column({
+        default: "Empty"
+    })
     castingTime: string;
 
-    @Column()
+    @Column({
+        default: 0
+    })
     spellLevel: number;
 
     @Column({
@@ -89,7 +111,9 @@ export class Spell {
     })
     attackType: DamageType;
 
-    @Column()
+    @Column({
+        default: "Empty"
+    })
     damageAtSlotLevel: string;
 
     @Column({

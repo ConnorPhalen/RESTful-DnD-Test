@@ -3,8 +3,16 @@
 Steps to run this project:
 
 1. Run `npm i` command
-2. Create and setup database settings inside `ormconfig.json` file (Example at https://github.com/typeorm/typeorm#quick-start)
+2. Create and setup database settings inside `ormconfig.json` file (Further details below)
 3. Run `npm start` command
+
+Dependancies:
+
+TypeORM with MySQL Driver (https://github.com/typeorm/typeorm#quick-start)
+NodeJS (https://nodejs.org/en/)
+MySQL Database (https://www.mysql.com/)
+Axios Javascript Library (https://github.com/axios/axios)
+
 
 
 Rough Notes (edit down later):
