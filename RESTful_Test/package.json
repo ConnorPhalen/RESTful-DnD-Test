@@ -1,6 +1,6 @@
 {
    "name": "RESTful_Test",
-   "version": "0.0.3",
+   "version": "0.0.4",
    "description": "Test project utilizing TypeORM and RESTful actions to retrieve and store database information.",
    "devDependencies": {
       "ts-node": "3.3.0",

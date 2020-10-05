@@ -30,17 +30,72 @@ createConnection().then(async connection => {
                 value.then(function(result) { // return Promise results
                     if(result){
                         // do nothing as entry already exists
+                        console.log(result + ' already exists. Skipping...');
                     }
                     else{
                         // Retrieve and store data for this spell
                         axios.get(apiPath + element.index)
-                            .then(function(response){
-                                console.log('Adding ' + element.name + ' to Database');
+                        //axios.get(apiPath + 'blight')
+                            .then(function(spellRet){
+                                console.log('Adding ' + spellRet.data.name + ' to Database');
 
-                                // TODO: Create a Helper/Etc. function to streamline this code
-                                
+                                //****TODO: Create a Helper/Etc. function to streamline this code
+                                let newspell = new Spell();
+                                //console.log(spellRet.data);
 
+                                newspell.spellIndex = spellRet.data.index;
+                                newspell.spellName = spellRet.data.name;
 
+                                spellRet.data.desc.forEach( (comp) => {
+                                    newspell.description += comp;
+                                    newspell.description += " ";
+                                });
+                                try{
+                                    spellRet.data.higher_level.forEach( (comp) => {
+                                        newspell.higherLevel += comp;
+                                        newspell.higherLevel += " - ";
+                                    });
+                                } catch(ex){
+                                    //console.log("UNDEFINED, SKIPPING...");
+                                }
+                                newspell.range = spellRet.data.range;
+
+                                spellRet.data.components.forEach( (comp) => {
+                                    newspell.components += comp;
+                                });
+                                newspell.material = spellRet.data.material;
+                                newspell.ritual = spellRet.data.ritual;
+                                newspell.duration = spellRet.data.duration;
+                                newspell.concentration = spellRet.data.concentration;
+                                newspell.castingTime = spellRet.data.casting_time;
+                                newspell.attackType = spellRet.data.attack_type;
+
+                                try{
+                                    newspell.damageType = spellRet.data.damage.damage_type.name;
+                            //newspell.damageAtSlotLevel = spellRet.data.damage.damage_at_slot_level;
+                                } catch(ex){
+                                    //console.log("UNDEFINED, SKIPPING...");
+                                }                    
+                                try{
+                                    newspell.dcType = spellRet.data.dc.dc_type.name;
+                                    newspell.dcSuccess = spellRet.data.dc.dc_success;
+                                    newspell.dcDesc = spellRet.data.dc.desc;
+                                } catch(ex){
+                                    //console.log("UNDEFINED, SKIPPING...");
+                                }
+                                try{
+                                    newspell.aoeType = spellRet.data.area_of_effect.type;
+                                    newspell.aoeSize = spellRet.data.area_of_effect.size;
+                                } catch(ex){
+                                    //console.log("UNDEFINED, SKIPPING...");
+                                }
+                                spell.magicSchool = spellRet.data.school.name;
+                                spellRet.data.classes.forEach( (comp) => {
+                                    newspell.classReq += comp.name;
+                                    newspell.classReq += " - ";
+                                });
+
+                                connection.manager.save(newspell);
                             })
                             .catch(function(error){
                                 console.log(error);

@@ -59,37 +59,40 @@ export class Spell {
     id: number;
 
     @Column({
-        default: "Empty"
+        default: "N/A"
     })
     spellIndex: string;
 
     @Column({
-        default: "Empty"
+        default: "N/A"
     })
     spellName: string;
 
     @Column({
-        default: "Empty"
+        length: 4096,
+        default: "N/A"
     })
     description: string;
 
     @Column({
-        default: "Empty"
+        length: 2048,
+        default: "N/A"
     })
     higherLevel: string;
 
     @Column({
         default: 0
     })
-    range: number;
+    range: string;
 
     @Column({
-        default: "Empty"
+        default: "N/A"
     })
     components: string;
 
     @Column({
-        default: "Empty"
+        length: 1024,
+        default: "N/A"
     })
     material: string;
 
@@ -99,9 +102,9 @@ export class Spell {
     ritual: boolean;
 
     @Column({
-        default: 0
+        default: "0"
     })
-    duration: number;
+    duration: string;
 
     @Column({
         default: false
@@ -109,7 +112,7 @@ export class Spell {
     concentration: boolean;
 
     @Column({
-        default: "Empty"
+        default: "N/A"
     })
     castingTime: string;
 
@@ -119,16 +122,47 @@ export class Spell {
     spellLevel: number;
 
     @Column({
+        default: "ranged"
+    })
+    attackType: string;
+
+    @Column({
         type: "enum",
         enum: DamageType,
         default: DamageType.BLUDGEONING
     })
-    attackType: DamageType;
+    damageType: DamageType;
 
     @Column({
-        default: "Empty"
+        default: "N/A"
     })
     damageAtSlotLevel: string;
+
+    @Column({
+        default: "N/A"
+    })
+    dcType: string;
+
+    @Column({
+        default: "N/A"
+    })
+    dcSuccess: string;
+
+    @Column({
+        length: 2048,
+        default: "N/A"
+    })
+    dcDesc: string;
+
+    @Column({
+        default: "N/A"
+    })
+    aoeType: string;
+
+    @Column({
+        default: 0
+    })
+    aoeSize: number;
 
     @Column({
         type: "enum",
@@ -138,10 +172,8 @@ export class Spell {
     magicSchool: MagicSchool;
 
     @Column({
-        type: "enum",
-        enum: Class,
-        default: Class.FIGHTER
+        default: "Fighter"
     })
-    classReq: Class;
+    classReq: string;
     // Columns End
 }
