@@ -1,8 +1,6 @@
 /*
 ** Spell Entity for storing data retrieved from the DnD API outlined in the README file.
 **
-** Helpful Sources: 
-**      Basic CRUD functions (Repository): https://levelup.gitconnected.com/complete-guide-to-using-typeorm-and-typescript-for-data-persistence-in-node-js-module-bfce169959d9
 */
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 
@@ -165,11 +163,9 @@ export class Spell {
     aoeSize: number;
 
     @Column({
-        type: "enum",
-        enum: MagicSchool,
-        default: MagicSchool.EVOCATION
+        default: "Transmutation"
     })
-    magicSchool: MagicSchool;
+    magicSchool: string;
 
     @Column({
         default: "Fighter"

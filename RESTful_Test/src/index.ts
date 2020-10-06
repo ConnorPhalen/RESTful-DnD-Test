@@ -3,20 +3,55 @@ import {createConnection} from "typeorm";
 import {getManager} from "typeorm";
 import {getRepository} from "typeorm";
 import {Spell} from "./entity/Spell";
+import {SpellTesterRepo} from "./entity/TestRepo";
 import {request} from 'http';
 
 // Setup variables
 const axios = require('axios');
 let apiPath = 'https://www.dnd5eapi.co/api/spells/';
-let spellName = 'acid-arrow';
-let spell = new Spell();
 
-
-
+//** Start Script
 // Create Connection to MySQL Database and retireve all spells from DnD API
 createConnection().then(async connection => {
 
-    console.log("Getting spells from DnD API...");
+    // Setup Test vars
+    console.log("Starting Spell Entity CRUD Test...");
+    let spellTestR = new SpellTesterRepo();
+    let testSpell = await spellTestR.getGenericSpell();
+
+    // Create Spell DB Entry
+    console.log("CREATE TEST...");
+    await spellTestR.createSpell(testSpell);
+
+    // Read Spell
+    let testSpell2 = await spellTestR.readSpell(testSpell.spellIndex);
+    console.log("READ TEST...");
+    console.log(testSpell2);
+
+    // Update Spell
+    console.log("UPDATE TEST...");
+    testSpell2.spellIndex = "sample-spell";
+    testSpell2.spellName = "Sample Spell";
+    testSpell2.description = "This text should be different than before.";
+    testSpell2.ritual = true;
+    testSpell2.magicSchool = "Hogwarts";
+    testSpell2.classReq = "That Potter Kid";
+    await spellTestR.updateSpell(testSpell2, testSpell2.id);
+
+    // Re-read Spell
+    let testSpell3 = await spellTestR.readSpell(testSpell2.spellIndex);
+    console.log(testSpell3);
+
+    // Delete Spell
+    console.log("DELETE TEST...");
+    await spellTestR.deleteSpellByID(testSpell3.id);
+
+    // Attempt Spell retrieval
+    let testSpell4 = await spellTestR.readSpell(testSpell3.spellIndex);
+    console.log(testSpell4);
+    console.log("Ending Spell Entity CRUD Test...");
+
+    console.log("Starting DnD API Spell Retrieval Test...");
     axios.get(apiPath)
         .then(function(response){
             // handle success
@@ -30,7 +65,7 @@ createConnection().then(async connection => {
                 value.then(function(result) { // return Promise results
                     if(result){
                         // do nothing as entry already exists
-                        console.log(result + ' already exists. Skipping...');
+                        console.log(result.spellName + ' already exists. Skipping...');
                     }
                     else{
                         // Retrieve and store data for this spell
@@ -72,7 +107,7 @@ createConnection().then(async connection => {
 
                                 try{
                                     newspell.damageType = spellRet.data.damage.damage_type.name;
-                            //newspell.damageAtSlotLevel = spellRet.data.damage.damage_at_slot_level;
+                                //newspell.damageAtSlotLevel = spellRet.data.damage.damage_at_slot_level;
                                 } catch(ex){
                                     //console.log("UNDEFINED, SKIPPING...");
                                 }                    
@@ -89,7 +124,7 @@ createConnection().then(async connection => {
                                 } catch(ex){
                                     //console.log("UNDEFINED, SKIPPING...");
                                 }
-                                spell.magicSchool = spellRet.data.school.name;
+                                newspell.magicSchool = spellRet.data.school.name;
                                 spellRet.data.classes.forEach( (comp) => {
                                     newspell.classReq += comp.name;
                                     newspell.classReq += " - ";
@@ -111,36 +146,5 @@ createConnection().then(async connection => {
             console.log('GET request failed to retrieve list');
         });
 
-
-    // Read, Update, Read, and Delete a Spell
-
-/*
-    console.log("Inserting a new spell into the database...");
-    const spell = new Spell();
-    spell.spellName = "TEST";
-    spell.description = "LOTTA TEST";
-    spell.range = 30;
-    await connection.manager.save(spell);
-    console.log("Saved a new spell with id: " + spell.id);
-
-    console.log("Loading spells from the database...");
-    const spells = await connection.manager.find(Spell);
-    console.log("Loaded spells: ", spells);
-
-    console.log("Here you can setup and run express/koa/any other framework.");
-*/
+    console.log("Ending DnD API Spell Retrieval Test...");
 }).catch(error => console.log(error));
-
-
-
-
-
-/* Quick Database Check Function (https://github.com/typeorm/typeorm/issues/2425#issuecomment-401288445)
-public async checkAtLeastOne(value: string): Promise<boolean> {
-    const result = await getConnection()
-        .getRepository(Entity)
-        .createQueryBuilder('entity')
-        .where('entity.value= :value', { value: value})
-        .getMany();
-    return result.length >= 1;
-}*/
