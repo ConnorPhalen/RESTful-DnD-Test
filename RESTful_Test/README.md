@@ -2,11 +2,11 @@
 
 Dependancies:
 
-TypeORM with MySQL Driver (https://github.com/typeorm/typeorm#quick-start)
-Reflect-Metadata (https://www.npmjs.com/package/reflect-metadata)
-MySQL Database (https://www.mysql.com/)
-Axios Javascript Library (https://github.com/axios/axios)
-Uses a RESTful API from https://www.dnd5eapi.co/ to gather Spell's
+  - TypeORM with MySQL Driver (https://github.com/typeorm/typeorm#quick-start)
+  - Reflect-Metadata (https://www.npmjs.com/package/reflect-metadata)
+  - MySQL Database (https://www.mysql.com/)
+  - Axios Javascript Library (https://github.com/axios/axios)
+  - Uses a RESTful API from https://www.dnd5eapi.co/ to gather Spell's
 
 Steps to run this project:
 
