@@ -1,16 +1,17 @@
 {
    "name": "RESTful_Test",
-   "version": "0.0.1",
-   "description": "Awesome project developed with TypeORM.",
+   "version": "0.1.1",
+   "description": "Test project utilizing TypeORM and RESTful actions to retrieve and store database information.",
    "devDependencies": {
       "ts-node": "3.3.0",
       "@types/node": "^8.0.29",
       "typescript": "3.3.3333"
    },
    "dependencies": {
-      "typeorm": "0.2.28",
+      "axios": "^0.20.0",
+      "mysql": "^2.14.1",
       "reflect-metadata": "^0.1.10",
-      "mysql": "^2.14.1"
+      "typeorm": "0.2.28"
    },
    "scripts": {
       "start": "ts-node src/index.ts"

@@ -1,3 +1,7 @@
+/*
+** Spell Entity for storing data retrieved from the DnD API outlined in the README file.
+**
+*/
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 
 export enum DamageType {
@@ -45,65 +49,127 @@ export enum Class {
 
 @Entity()
 export class Spell {
+    // Functions Start
+    // Functions End
 
+    // Columns Start
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({
+        default: "N/A"
+    })
+    spellIndex: string;
+
+    @Column({
+        default: "N/A"
+    })
     spellName: string;
 
-    @Column()
+    @Column({
+        length: 4096,
+        default: "N/A"
+    })
     description: string;
 
-    @Column()
+    @Column({
+        length: 2048,
+        default: "N/A"
+    })
     higherLevel: string;
 
-    @Column()
-    range: number;
+    @Column({
+        default: 0
+    })
+    range: string;
 
-    @Column()
+    @Column({
+        default: "N/A"
+    })
     components: string;
 
-    @Column()
+    @Column({
+        length: 1024,
+        default: "N/A"
+    })
     material: string;
 
-    @Column()
-    ritual: bool;
+    @Column({
+        default: false
+    })
+    ritual: boolean;
 
-    @Column()
-    duration: number;
+    @Column({
+        default: "0"
+    })
+    duration: string;
 
-    @Column()
-    concentration: bool;
+    @Column({
+        default: false
+    })
+    concentration: boolean;
 
-    @Column()
+    @Column({
+        default: "N/A"
+    })
     castingTime: string;
 
-    @Column()
+    @Column({
+        default: 0
+    })
     spellLevel: number;
+
+    @Column({
+        default: "ranged"
+    })
+    attackType: string;
 
     @Column({
         type: "enum",
         enum: DamageType,
         default: DamageType.BLUDGEONING
     })
-    attackType: DamageType;
+    damageType: DamageType;
 
-    @Column()
+    @Column({
+        default: "N/A"
+    })
     damageAtSlotLevel: string;
 
     @Column({
-        type: "enum",
-        enum: MagicSchool,
-        default: MagicSchool.EVOCATION
+        default: "N/A"
     })
-    attackType: MagicSchool;
+    dcType: string;
 
     @Column({
-        type: "enum",
-        enum: Class,
-        default: Class.FIGHTER
+        default: "N/A"
     })
-    attackType: Class;
+    dcSuccess: string;
 
+    @Column({
+        length: 2048,
+        default: "N/A"
+    })
+    dcDesc: string;
+
+    @Column({
+        default: "N/A"
+    })
+    aoeType: string;
+
+    @Column({
+        default: 0
+    })
+    aoeSize: number;
+
+    @Column({
+        default: "Transmutation"
+    })
+    magicSchool: string;
+
+    @Column({
+        default: "Fighter"
+    })
+    classReq: string;
+    // Columns End
 }
