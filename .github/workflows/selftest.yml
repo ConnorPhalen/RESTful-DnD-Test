@@ -18,10 +18,11 @@ jobs:
     - name: Test Things
       uses: actions/checkout@v2
     - run: |
-        mysql --version
-        docker --version
         echo "Hello World"
         garbage
     - name: Cleanup
       if: ${{ always() }}
-      run: printf "Yes"
+      run: |
+        echo "Yes"
+        mysql --version
+        docker --version
