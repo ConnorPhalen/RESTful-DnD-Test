@@ -17,14 +17,9 @@ jobs:
     steps:
     - name: Test Things
       uses: actions/checkout@v2
-    - run: |
-        echo "Hello World"
-        grbage
-    - name: Cleanup
+    - run: echo "Hello World"
+    - run: egereg
       if: ${{ always() }}
-      run: |
-        echo "Yes"
-    - name: The job has failed
+    - run: echo "Yes"
       if: ${{ failure() }}
-      run: |
-        echo "No"
+    - run: echo "No"
