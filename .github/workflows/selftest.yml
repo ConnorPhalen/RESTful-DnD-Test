@@ -19,7 +19,6 @@ jobs:
       uses: actions/checkout@v2
     - run: |
         echo "Hello World"
-        garbage
     - name: Cleanup
       if: ${{ always() }}
       run: |
