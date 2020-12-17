@@ -17,6 +17,8 @@ jobs:
     steps:
     - name: Test Things
       uses: actions/checkout@v2
-    - run: mysql --version
-    - run: docker --version
-    - run: echo "Hello World" 
+    - run: |
+        mysql --version
+        docker --version
+        echo "Hello World"
+        mkdir DELETEME
