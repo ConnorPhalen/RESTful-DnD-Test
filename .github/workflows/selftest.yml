@@ -19,9 +19,12 @@ jobs:
       uses: actions/checkout@v2
     - run: |
         echo "Hello World"
+        grbage
     - name: Cleanup
       if: ${{ always() }}
       run: |
         echo "Yes"
-        mysql --version
-        docker --version
+    - name: The job has failed
+      if: ${{ failure() }}
+      run: |
+        echo "No"
