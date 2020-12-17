@@ -10,7 +10,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test:
 
     runs-on: self-hosted
     
@@ -21,4 +21,7 @@ jobs:
         mysql --version
         docker --version
         echo "Hello World"
-        mkdir DELETEME
+        garbage
+    - name: Cleanup
+      if: ${{ always() }}
+      run: printf "Yes"
